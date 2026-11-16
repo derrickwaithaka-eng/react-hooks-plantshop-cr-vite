@@ -11,7 +11,7 @@ function PlantForm({ onAddPlant }) {
     const newPlantData = {
       name,
       image,
-      price, // Keep as string directly from state input
+      price,
     };
 
     fetch("http://localhost:6001/plants", {

@@ -12,7 +12,7 @@ function PlantCard({ plant }) {
     <li className="card" data-testid="plant-item">
       <img src={image} alt={name} />
       <h4>{name}</h4>
-      <p>Price: {price}</p> {/* Removed the $ sign here */}
+      <p>Price: {price}</p>
       {inStock ? (
         <button className="primary" onClick={handleToggleStock}>
           In Stock
