@@ -3,27 +3,23 @@ import Header from "./Header";
 import PlantPage from "./PlantPage";
 
 function App() {
-  // State to hold all plants fetched from the backend
   const [plants, setPlants] = useState([]);
-  
-  // State to track the current search input value
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch all plants on initial page load
+  // Task 1: Fetch initial plants on page load
   useEffect(() => {
     fetch("http://localhost:6001/plants")
-      .then((res) => res.json())
-      .then((data) => setPlants(data))
-      .catch((error) => console.error("Error fetching plants:", error));
+      .then((r) => r.json())
+      .then((data) => setPlants(data));
   }, []);
 
-  // Callback function to add a newly created plant to the state
+  // Task 2: Add new plant to state after successful POST request
   function handleAddPlant(newPlant) {
     setPlants((prevPlants) => [...prevPlants, newPlant]);
   }
 
-  // Filter the plants array based on the search query (case-insensitive)
-  const displayedPlants = plants.filter((plant) =>
+  // Task 4: Filter plants based on search input
+  const filteredPlants = plants.filter((plant) =>
     plant.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -31,7 +27,7 @@ function App() {
     <div className="app">
       <Header />
       <PlantPage
-        plants={displayedPlants}
+        plants={filteredPlants}
         onAddPlant={handleAddPlant}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}

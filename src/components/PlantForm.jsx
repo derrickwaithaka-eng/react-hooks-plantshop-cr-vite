@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function NewPlantForm({ onAddPlant }) {
+function PlantForm({ onAddPlant }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
@@ -8,10 +8,10 @@ function NewPlantForm({ onAddPlant }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const newPlant = {
-      name: name,
-      image: image,
-      price: parseFloat(price),
+    const newPlantData = {
+      name,
+      image,
+      price, // Keep as string directly from state input
     };
 
     fetch("http://localhost:6001/plants", {
@@ -19,11 +19,11 @@ function NewPlantForm({ onAddPlant }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPlant),
+      body: JSON.stringify(newPlantData),
     })
-      .then((res) => res.json())
-      .then((createdPlant) => {
-        onAddPlant(createdPlant);
+      .then((r) => r.json())
+      .then((newPlant) => {
+        onAddPlant(newPlant);
         setName("");
         setImage("");
         setPrice("");
@@ -62,4 +62,4 @@ function NewPlantForm({ onAddPlant }) {
   );
 }
 
-export default NewPlantForm;
+export default PlantForm;
